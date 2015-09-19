@@ -1,54 +1,69 @@
-/*eslint-disable */
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 
-module.exports = {
-	context: path.resolve('./src'),
+/** Loaders */
+require('babel-loader');
+require('css-loader');
+require('file-loader');
+require('html-loader');
+require('sass-loader');
+require('style-loader');
+require('url-loader');
 
-	entry: {
-		main: [ './browser' ],
-		bundle: [
-			'webpack-dev-server/client?http://0.0.0.0:3000',
-			'webpack/hot/only-dev-server',
-			'./renderer/index.html',
-			'./renderer/index.js'
-		],
-	},
 
-	/* resolve: {
-		root: path.join(__dirname),
-		modulesDirectories: ['node_modules']
-	}, */
-	node: {
-		__filename: true,
-		__dirname: true,
-		console: true,
-		global: true,
-		process: true,
-		Buffer: true,
-	},
+var externals = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    externals[mod] = 'commonjs ' + mod;
+  });
 
-	output: {
-		path: path.resolve(__dirname, 'build'),
-		filename: '[name].js',
-		libraryTarget: 'commonjs2'
-	},
-	devServer: {
-		contentBase: './build/',
-		inline: true,
-	},
-	devtool: 'eval-source-map',
-	target: 'atom',
-	module: {
-		loaders: [
-			{ test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /^node_modules$/ },
-			{ test: /\.css$/, loader: 'style-loader!css-loader' },
-			{ test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
-			{ test: /\.html$/, loader: 'html!file?name=[name].[ext]' }
-		]
-	},
-	plugins: [
-		new webpack.IgnorePlugin(/vertx/),
-		new webpack.HotModuleReplacementPlugin()
-	]
+if (process.env.NODE_ENV == "PRODUCTION") {
+} else {
+  /** Development configuration */
+}
+
+
+/** Base Configuration */
+module.exports = options = {
+  devtool: 'eval',
+  context: path.resolve(__dirname, "src"),
+  entry: {
+    main: './main',
+    app: ['./index.html', './app'],
+  },
+  output: {
+    path: path.resolve(__dirname, "build"),
+    publicPath: '/build/',
+    filename: '[name].bundle.js'
+  },
+  externals: externals,
+  target: 'electron',
+  node: {
+    console: true,
+    global: true,
+    process: true,
+    Buffer: true,
+    __filename: true,
+    __dirname: true
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel'
+      },
+      { test: /\.sass$/, loaders: ['style', 'css', 'sass'] },
+      { test: /\.css$/, loader: ['style', 'css'] },
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
+      { test: /\.html$/, loaders: ['html', 'file?name=[name].[ext]'] }
+    ]
+  }
 };
+
+
+console.log(__dirname);

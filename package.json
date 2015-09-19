@@ -1,34 +1,42 @@
 {
   "name": "jetpack",
-  "version": "1.0.0",
-  "description": "Electron + Webpack boilerplate",
-  "main": "index.js",
-  "private": "true",
+  "version": "0.0.1",
+  "description": "🚀",
+  "main": "build/main.bundle.js",
   "scripts": {
+    "build": "webpack",
+    "clean": "rimraf build/* dist/*",
+    "lint": "eslint src",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ali/jetpack.git"
+  },
   "author": "Ali Ukani <ali.ukani@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ali/jetpack/issues"
+  },
+  "homepage": "https://github.com/ali/jetpack#readme",
   "devDependencies": {
-    "autoprefixer-loader": "^2.0.0",
-    "babel-core": "^5.8.23",
-    "babel-eslint": "^4.1.1",
+    "babel-core": "^5.8.24",
+    "babel-eslint": "^4.1.3",
     "babel-loader": "^5.3.2",
-    "css-loader": "^0.17.0",
-    "electron-prebuilt": "^0.31.2",
-    "electron-rebuild": "^1.0.0",
-    "eslint": "^1.3.1",
-    "eslint-config-airbnb": "0.0.8",
-    "eslint-plugin-react": "^3.3.1",
-    "extract-text-webpack-plugin": "^0.8.2",
+    "css-loader": "^0.18.0",
+    "electron-prebuilt": "^0.33.0",
+    "eslint": "^1.5.0",
+    "eslint-plugin-react": "^3.4.2",
     "file-loader": "^0.8.4",
     "html-loader": "^0.3.0",
-    "node-sass": "^3.3.2",
-    "react-hot-loader": "^1.3.0",
+    "node-sass": "^3.3.3",
+    "rimraf": "^2.4.3",
     "sass-loader": "^2.0.1",
-    "style-loader": "^0.12.3",
-    "webpack": "^1.12.1",
-    "webpack-dev-server": "^1.10.1"
+    "style-loader": "^0.12.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.11.0"
   },
   "dependencies": {
     "react": "^0.13.3"
