@@ -58,7 +58,7 @@ module.exports = options = {
         loader: 'babel'
       },
       { test: /\.sass$/, loaders: ['style', 'css', 'sass'] },
-      { test: /\.css$/, loader: ['style', 'css'] },
+      { test: /\.css$/, loaders: ['style', 'css'] },
       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
       { test: /\.html$/, loaders: ['html', 'file?name=[name].[ext]'] }
     ]
